@@ -1,7 +1,20 @@
+using FundCartable.Data;
+using FundCartable.Repositories;
+using FundCartable.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//ConnectionToDB
+builder.Services.AddDbContext<FundAppContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<IFundServices,FundServices>();
 
 var app = builder.Build();
 
